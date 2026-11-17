@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8">
-<meta name="build" content="2026-11-06 маска-наверх-жители">
+<meta name="build" content="2026-11-17 участники-недель">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Biomed Tour — тур на концерт BTS</title>
 <meta name="description" content="Сними ролик с маской Biomed Tour и выиграй тур на концерт BTS в Куала-Лумпуре. Каждую неделю — подарки от Biomed. Правила розыгрыша.">
@@ -242,6 +242,27 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .notice{margin:0 0 14px;padding:14px 16px;border-radius:16px;background:rgba(111,231,255,.12);border:1px solid var(--cyan)}
 .notice p{margin:0}
 .notice a{display:inline-block;margin-top:6px;font-weight:600}
+.pt-lead{margin:0;color:var(--lav)}
+.pt-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:18px 0 12px}
+.pt-tab{position:relative;display:grid;gap:2px;padding:10px 6px;border-radius:14px;border:1.5px solid var(--line-strong);background:transparent;color:var(--text);font:inherit;font-size:15px;font-weight:700;line-height:1.2;text-align:center;cursor:pointer}
+.pt-tab small{font-size:12px;font-weight:500;color:var(--lav);font-variant-numeric:tabular-nums}
+.pt-tab[aria-selected="true"]{background:var(--accent);border-color:var(--accent)}
+.pt-tab[aria-selected="true"] small{color:var(--text)}
+.pt-tab:focus-visible,.pt-search:focus-within{outline:2px solid var(--cyan);outline-offset:2px}
+.pt-badge{position:absolute;top:-8px;right:-6px;min-width:24px;padding:2px 7px;border-radius:999px;background:var(--cyan);color:var(--bg);font-size:12px;font-weight:800}
+.pt-badge.zero{background:var(--plate);color:var(--lav)}
+.pt-search{display:flex;align-items:center;gap:10px;min-height:50px;padding:0 14px;border-radius:14px;background:var(--plate-soft);border:1.5px solid var(--line-strong);color:var(--lav)}
+.pt-search input{flex:1 1 auto;min-width:0;border:0;background:transparent;color:var(--text);font:inherit;font-size:16px;outline:none}
+.pt-search input::placeholder{color:var(--lav);opacity:.8}
+.pt-count{margin:12px 0 0;font-size:14px;color:var(--lav)}
+.pt-list{list-style:none;margin:10px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px 10px}
+.pt-list li{display:flex;gap:8px;min-width:0;padding:7px 10px;border-radius:10px;background:rgba(59,26,122,.35);font-size:15px;line-height:1.35}
+.pt-n{flex:none;min-width:2ch;color:var(--lav);font-variant-numeric:tabular-nums}
+.pt-nick{min-width:0;overflow-wrap:anywhere}
+.pt-nick mark{background:var(--cyan);color:var(--bg);border-radius:3px}
+.pt-empty{margin:12px 0 0}
+.pt-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.pt-actions button.btn{background:transparent;font-family:inherit;cursor:pointer}
 .edition{margin:14px 0 0;display:flex;gap:8px;align-items:center;font-size:13px;color:var(--lav)}
 
 /* Подвал */
@@ -520,6 +541,20 @@ details[open] > summary .chev{transform:rotate(180deg)}
     </p>
   </section>
 
+  <section class="sec wrap" id="participants">
+    <h2 class="h2" data-t="13.1"></h2>
+    <p class="pt-lead" data-t="13.2"></p>
+    <div class="pt-tabs" role="tablist"><button class="pt-tab" type="button" role="tab" aria-selected="false" aria-controls="pt-list"></button><button class="pt-tab" type="button" role="tab" aria-selected="false" aria-controls="pt-list"></button><button class="pt-tab" type="button" role="tab" aria-selected="false" aria-controls="pt-list"></button></div>
+    <label class="pt-search"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="pt-q" type="search" data-tph="13.4" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+    <p class="pt-count" id="pt-count" aria-live="polite"></p>
+    <ol class="pt-list" id="pt-list" role="tabpanel"></ol>
+    <p class="pt-empty" id="pt-empty" data-t="13.7" hidden></p>
+    <div class="pt-actions">
+      <button class="btn btn-ghost" id="pt-more" type="button" hidden></button>
+      <a class="btn btn-ghost" href="participants.xlsx" download="biomedtour-participants.xlsx"><svg class="ic" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span data-t="13.9"></span></a>
+    </div>
+  </section>
+
 </main>
 
 <footer class="ftr">
@@ -543,6 +578,14 @@ details[open] > summary .chev{transform:rotate(180deg)}
   /* =====================================================================
      НАСТРОЙКИ — меняются здесь, остальной код трогать не нужно
      ===================================================================== */
+
+  // Списки участников розыгрышей недели — только ники TikTok, по алфавиту.
+  // Новую неделю добавлять строкой в том же виде.
+  var PARTICIPANTS = [
+    { week: 1, dates: '20.10–01.11', nicks: ["aabdllv", "aigerim_nur1", "aizhnl_", "akerke_jk_9297", "ana_ibragimova", "aqbayanxx", "aru.mirah", "atyrau_2020", "bazhalek.0", "bek_apple", "borahaesoul7", "gulsan4ik8", "leo_atyrau", "looklearnlisten67", "lupam72", "malika_officiel_", "mollya99", "ruslanovna_2ak", "saya_kaii", "sultanovaassel", "sunrise_7.7.7", "zhankaxix"] },
+    { week: 2, dates: '02.11–08.11', nicks: ["50procentovsluha", "aigerim.askhatkyzy", "aikauzenbayeva", "ais_.ais", "akerke_jk_9297", "aldikcristiano", "alja_0613", "anas_moon_tasia", "aokedzi", "apizova99", "araikosh__25", "arlychick", "army.shop.kz", "aruf292", "arusoullv", "asel.rahman", "asel36986", "asematagrammy", "asembeinem", "bl_ueeyed", "boomshakalakabom", "dana_ayash_", "danyoka.my93", "di.ji_", "dibo_55", "dinara_shalkarr", "dlsldl11", "fansy_jansee", "felicya801", "gulmira.abayeva", "gulmiraolzhatayeva", "igerim1", "jimkina95", "jkkorea97", "julia_shop_almaty", "kakadu_company", "kazaxman", "kim77nur", "kim_seok_jin9204", "klmldnva", "kukolka7608", "lachimolalala__", "lera.kuss", "lovelyseven07", "lucky078634", "mary613_", "mdn_sk7", "mniaruzhan", "mnileilah", "mrsminijung", "munanc_c", "musagalievnag", "my.mio.o.mio", "none1365244", "nur.a.a.90", "nur128703", "nurgularmy", "nutututu", "oralay65", "purple7world", "s.tatiana1993", "sayaashm7", "sevensoul78", "soonria1", "taylorever_", "trabdabl", "tttt81982", "uarmysayaa", "user4442519546151", "user9k2amu9mtk", "winter.bear0267", "xerke_nara02", "ysraiylovaakerke", "zh_aknuraa", "zhansaya_army"] },
+    { week: 3, dates: '09.11–15.11', nicks: ["1themussan", "2a_moon", "__ibragimovna", "_ashimova11", "_dgez_10", "_love_wor1b", "_nzeekali_9", "a_v_a_l_i7", "abieva_galina_atyrau", "ai_bb5", "aidoshkiin", "aigul05", "aikasweet1", "aikerimmalik_", "aimankozhbanova", "ainabat1987", "ainura_orazova_", "aiqarakozv", "ais_.ais", "aiym_cash", "akbope_01", "alina_ernar", "alisherovaa_a", "aliya69144", "alizhan_tilekbay", "altusha.zh", "altynbekova_sse", "amygdala_m", "anas_moon_tasia", "apizova99", "arai_patsha", "arailym_satybaldiyeva02", "army7jk5", "army_06.132", "armyyyybts7", "assp171", "atyrau_2020", "aveinag_d", "ayakkon", "ayasshh2", "ayasups", "balnurzhanatovna", "bangtansonyeondan_36", "bazhalek.0", "benjamin.owl.book", "bts_army.1380", "by_nazeka", "c.kwee", "cgzhhh", "dilrabo_alimardanovna", "flow_very_777", "flower_roza56", "forever.v30", "gauora", "gd43459", "gukiv97", "guldenzhunusova", "handan2067", "https.jimin", "https.naziko", "iamdana.___", "iamdonikk", "iceaiger", "its_gu1naz", "jan_tai", "jane.lifestyle.dance", "jiw.wonder", "jk.97765", "jml_cky", "jumagaliqyzy", "jungkookwife2601", "justsula8", "karolin_kassymbekova", "kat.jk", "khamzina_d", "kimcrijung", "kino_room22", "klmldnva", "kok_koz96", "kz_aida_07", "leo_atyrau", "littlebig162", "lovelyseven07", "luunaa_chaann", "m_i_k_o_s_h_a", "malika_officiel_", "malikaleto33", "mengoisoul", "mine.daylight", "miracle_boooks", "mniaruzhan", "mnijanel", "monigirlot7", "moonnyiaa", "mr..k8332", "munisa.dauletova", "murcencia", "musagalievnag", "mxwtmee", "nazeka_talgatbekova", "nazzvibess", "nur.a.a.90", "nur128703", "nurgul.orynbassar6", "nurlankyzy_indira", "oceandrive", "olaflaff", "oralay65", "polinaria.reads", "puhli.popa.mladenc", "purplenick_", "qanybekovna1", "qyzyl7", "rauka3811", "rina_kartina5", "sarykyz001", "savllesa", "seon09l", "shukiman.zh7", "sozberealamyn", "speccnazz", "ssrsrsrsr5", "symbat8345", "tgzhn27", "they.all.hear.ur.name", "thv6339", "thvnq.z", "tleubergenovakuralay", "tolkyn_jumabek", "user1343401306134", "user4968699081135", "user8023797203708", "user8106626311866", "user8393615917051", "usernamaiau", "valalalal77", "vicktoria_atyrau", "vinsentd", "yoongiswife0293", "ysraiylovaakerke", "zhanka0297", "zhanrka7", "zhussupovass", "zzabbavva"] }
+  ];
 
   // Блок «Итоги» сразу после первого экрана. Включить 27 ноября: true.
   var SHOW_RESULTS = false;
@@ -905,7 +948,16 @@ details[open] > summary .chev{transform:rotate(180deg)}
       "2.17": "Где найти",
       "2.18": "Ищи в супермаркетах, аптеках своего города и на маркетплейсах. Чаще всего Biomed есть здесь:",
       "8.12": "У меня паспорт другой страны. Можно участвовать?",
-      "8.13": "Да, подойдёт не казахстанский паспорт, главное, чтобы паста была куплена в Казахстане."
+      "8.13": "Да, подойдёт не казахстанский паспорт, главное, чтобы паста была куплена в Казахстане.",
+      "13.1": "Участники розыгрышей недели",
+      "13.2": "Аккаунты, которые участвовали в розыгрыше подарков недели.",
+      "13.3": "Неделя {n}",
+      "13.4": "Найди свой ник",
+      "13.5": "Участников: {n}",
+      "13.6": "Найдено: {k} из {n}",
+      "13.7": "В этой неделе такого ника нет.",
+      "13.8": "Показать всех ({n})",
+      "13.9": "Скачать списки в Excel"
     },
     "kk": {
       "1.1": "Ережелер",
@@ -1019,7 +1071,16 @@ details[open] > summary .chev{transform:rotate(180deg)}
       "2.17": "Қайдан табуға болады",
       "2.18": "Өз қалаңдағы супермаркеттерден, дәріханалардан және маркетплейстерден ізде. Biomed көбінесе мына жерлерде бар:",
       "8.12": "Менде басқа елдің паспорты бар. Қатысуға бола ма?",
-      "8.13": "Иә, қазақстандық емес паспорт та жарайды, ең бастысы — паста Қазақстанда сатып алынған болуы керек."
+      "8.13": "Иә, қазақстандық емес паспорт та жарайды, ең бастысы — паста Қазақстанда сатып алынған болуы керек.",
+      "13.1": "Апта ұтыстарының қатысушылары",
+      "13.2": "Апта сыйлықтарының ұтысына қатысқан аккаунттар.",
+      "13.3": "{n}-апта",
+      "13.4": "Никіңді тап",
+      "13.5": "Қатысушылар: {n}",
+      "13.6": "Табылды: {k} / {n}",
+      "13.7": "Бұл аптада мұндай ник жоқ.",
+      "13.8": "Барлығын көрсету ({n})",
+      "13.9": "Тізімдерді Excel-мен жүктеп алу"
     }
   };
 
@@ -1070,6 +1131,49 @@ details[open] > summary .chev{transform:rotate(180deg)}
     return parts[idx] || '';
   }
 
+
+  // Списки участников: вкладки по неделям и поиск по нику
+  var PT_LIMIT = 24, ptWeek = PARTICIPANTS.length - 1, ptAll = false;
+  function ptNorm(s) { return String(s || '').toLowerCase().replace(/^[\s@]+|\s+$/g, ''); }
+  function ptMark(nick, q) {
+    var i = q ? nick.toLowerCase().indexOf(q) : -1;
+    if (i < 0) return esc(nick);
+    return esc(nick.slice(0, i)) + '<mark>' + esc(nick.slice(i, i + q.length)) + '</mark>' + esc(nick.slice(i + q.length));
+  }
+  function renderParticipants() {
+    var box = document.getElementById('participants');
+    if (!box || !PARTICIPANTS.length) { if (box) box.hidden = true; return; }
+    var T = TEXTS[document.documentElement.lang] || TEXTS.ru;
+    var q = ptNorm(document.getElementById('pt-q').value);
+    each(box.querySelectorAll('.pt-tab'), function (b, i) {
+      var w = PARTICIPANTS[i];
+      if (!w) { b.hidden = true; return; }
+      var k = 0;
+      if (q) w.nicks.forEach(function (n) { if (n.toLowerCase().indexOf(q) !== -1) k++; });
+      b.innerHTML = '<span>' + esc(T['13.3'].replace('{n}', w.week)) + '</span><small>' + esc(w.dates) + '</small>' +
+        (q ? '<span class="pt-badge' + (k ? '' : ' zero') + '">' + k + '</span>' : '');
+      b.setAttribute('aria-selected', i === ptWeek ? 'true' : 'false');
+    });
+    var w = PARTICIPANTS[ptWeek], items = [];
+    w.nicks.forEach(function (n, j) { if (!q || n.toLowerCase().indexOf(q) !== -1) items.push([j + 1, n]); });
+    var shown = (q || ptAll) ? items : items.slice(0, PT_LIMIT);
+    document.getElementById('pt-list').innerHTML = shown.map(function (it) {
+      return '<li><span class="pt-n">' + it[0] + '</span><span class="pt-nick">@' + ptMark(it[1], q) + '</span></li>';
+    }).join('');
+    document.getElementById('pt-count').textContent = q
+      ? T['13.6'].replace('{k}', items.length).replace('{n}', w.nicks.length)
+      : T['13.5'].replace('{n}', w.nicks.length);
+    document.getElementById('pt-empty').hidden = !(q && !items.length);
+    var more = document.getElementById('pt-more');
+    more.hidden = !!q || ptAll || items.length <= PT_LIMIT;
+    more.textContent = T['13.8'].replace('{n}', items.length);
+  }
+  each(document.querySelectorAll('#participants .pt-tab'), function (b, i) {
+    b.addEventListener('click', function () { ptWeek = i; ptAll = false; renderParticipants(); });
+  });
+  document.getElementById('pt-q').addEventListener('input', renderParticipants);
+  document.getElementById('pt-more').addEventListener('click', function () { ptAll = true; renderParticipants(); });
+
   function apply(lang) {
     var T = TEXTS[lang];
     document.documentElement.lang = lang;
@@ -1117,6 +1221,12 @@ details[open] > summary .chev{transform:rotate(180deg)}
     } else {
       notice.hidden = true;
     }
+
+    each(document.querySelectorAll('[data-tph]'), function (el) {
+      var s = T[el.getAttribute('data-tph')];
+      if (s !== undefined) { el.placeholder = s; el.setAttribute('aria-label', s); }
+    });
+    renderParticipants();
 
     document.title = T['9.9'];
     var desc = document.querySelector('meta[name="description"]');
